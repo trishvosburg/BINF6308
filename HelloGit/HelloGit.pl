@@ -3,5 +3,5 @@ use warnings;
 use strict;
 use feature qw(say);
 
-say "Hello Git edited on server";
+say "Hello Git edited in Eclipse";
 
