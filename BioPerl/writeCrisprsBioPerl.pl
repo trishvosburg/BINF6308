@@ -20,11 +20,13 @@ my $seqio_obj = Bio::SeqIO->new(-file => 'dmel-all-chromosome-r6.17.fasta',
 while (my $seq_obj = $seqio_obj->next_seq){
 	print $seq_obj->desc, "\n";
 }
+my $refseq = callSequence($seq_obj);
 
 #hash to store kmers
 my %kMerHash = ();
 #hash to store occurrences of last 12 positions
 my %last12Counts = ();
+
 
 sub callSequence {
 	#declare scalars to characterize sliding window
