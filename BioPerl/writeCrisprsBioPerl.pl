@@ -14,26 +14,27 @@ use Bio::SeqIO;
 # One Bio::SeqIO to read input FASTA file
 # One Bio::SeqIO to write CRISPRS
 
+#create an output file
+open( FASTA_OUT, ">", 'crisprs1.fasta' ) or die $!;    #open or die
+
 # Bio::SeqIO to read input fasta file:
 my $seqio_obj = Bio::SeqIO->new(-file => 'dmel-all-chromosome-r6.17.fasta',
 							-format => 'fasta');
 
-my $sequence;							
+							
 while (my $seq_obj = $seqio_obj->next_seq){
-	$sequence->write_seq($seq_obj);
+	my $sequence=$seq_obj->seq;
+	callSequence(\$sequence);
 }
-say $sequence;
-
-=cut
-my $refseq = callSequence($sequence);
 
 #hash to store kmers
 my %kMerHash = ();
 #hash to store occurrences of last 12 positions
 my %last12Counts = ();
 
-
 sub callSequence {
+	my($sequence)= @_;
+	
 	#declare scalars to characterize sliding window
 	#Set the size of the sliding window
 	my $windowSize = 21;
