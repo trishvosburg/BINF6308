@@ -2,6 +2,7 @@
 use warnings;
 use strict;
 use diagnostics;
+use feature qw(say);
 
 use Bio::Seq;
 use Bio::SeqIO;
@@ -16,11 +17,15 @@ use Bio::SeqIO;
 # Bio::SeqIO to read input fasta file:
 my $seqio_obj = Bio::SeqIO->new(-file => 'dmel-all-chromosome-r6.17.fasta',
 							-format => 'fasta');
-							
+
+my $sequence;							
 while (my $seq_obj = $seqio_obj->next_seq){
-	print $seq_obj->desc, "\n";
+	$sequence->write_seq($seq_obj);
 }
-my $refseq = callSequence($seq_obj);
+say $sequence;
+
+=cut
+my $refseq = callSequence($sequence);
 
 #hash to store kmers
 my %kMerHash = ();
@@ -35,7 +40,7 @@ sub callSequence {
 
 	#Set the step size
 	my $stepSize  = 1;
-	my $seqLength = length($seq_obj);
+	my $seqLength = length($sequence);
 
 	#for loop to increment the starting position of the sliding window
 	#starts at position zero; doesn't move past end of file; advance the window by step size
@@ -48,7 +53,7 @@ sub callSequence {
 
 		#Get a 21-mer substring from sequenceRef (two $ to deference reference to
 		#sequence string) starting at the window start for length $windowStart
-		my $crisprSeq = substr( $seq_obj, $windowStart, $windowSize );
+		my $crisprSeq = substr( $sequence, $windowStart, $windowSize );
 
 	#if the 21-mer ends in GG, create a hash with key=last 12 of k-mer and value is 21-mer
 	#Regex where $1 is the crispr, and $2 contains the last 12 of crispr.
