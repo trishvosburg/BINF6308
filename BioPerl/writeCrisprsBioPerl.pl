@@ -41,7 +41,7 @@ sub callSequence {
 
 	#Set the step size
 	my $stepSize  = 1;
-	my $seqLength = length($sequence);
+	my $seqLength = length($$sequence);
 
 	#for loop to increment the starting position of the sliding window
 	#starts at position zero; doesn't move past end of file; advance the window by step size
@@ -54,7 +54,7 @@ sub callSequence {
 
 		#Get a 21-mer substring from sequenceRef (two $ to deference reference to
 		#sequence string) starting at the window start for length $windowStart
-		my $crisprSeq = substr( $sequence, $windowStart, $windowSize );
+		my $crisprSeq = substr( $$sequence, $windowStart, $windowSize );
 
 	#if the 21-mer ends in GG, create a hash with key=last 12 of k-mer and value is 21-mer
 	#Regex where $1 is the crispr, and $2 contains the last 12 of crispr.
@@ -64,7 +64,7 @@ sub callSequence {
 			$kMerHash{$2} = $1;
 			$last12Counts{$2}++;
 
-		return $$sequence;
+		
 		}
 
 	}
