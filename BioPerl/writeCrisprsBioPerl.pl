@@ -59,11 +59,10 @@ sub callSequence {
 	#if the 21-mer ends in GG, create a hash with key=last 12 of k-mer and value is 21-mer
 	#Regex where $1 is the crispr, and $2 contains the last 12 of crispr.
 		if ( $crisprSeq =~ /([ATGC]{9}([ATGC]{10}GG))$/ ) {
-	
+
 			#Put the crispr in the hash with last 12 as key, full 21 as value.
 			$kMerHash{$2} = $1;
 			$last12Counts{$2}++;
-
 		
 		}
 
@@ -76,17 +75,17 @@ my $crisprCount = 0;
 #Print the CRISPR in FASTA format.
 		my $seq_obj_out = Bio::Seq->new(
 			-seq => '$kMerHash{$last12Seq}',
-			-display_id => 'crispr_$crisprCount CRISPR',
+			-display_id => 'crispr_$crisprCount',
 			-desc => "Crispr Count",
 			-alphabet => "dna"
 		);
 		my $seqio_obj_out = Bio::SeqIO->new(
-			-file => '>crisprsTEST.fasta',
+			-file => '>crisprsTEST2.fasta',
 			-format => 'fasta'
 		);
 		
 		$seqio_obj_out->write_seq($seq_obj_out);
-		
+
 #Loop through the hash of last 12 counts
 for my $last12Seq ( sort (keys %last12Counts) ) {
 
@@ -99,4 +98,5 @@ for my $last12Seq ( sort (keys %last12Counts) ) {
 
 	}
 }
+
 							
