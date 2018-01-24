@@ -72,21 +72,16 @@ sub callSequence {
 #Initialize the CRISPR count to zero
 my $crisprCount = 0;
 
-#Print the CRISPR in FASTA format.
-		my $seq_obj_out = Bio::Seq->new(
-			-seq => '$kMerHash{$last12Seq}',
-			-display_id => 'crispr_$crisprCount',
-			-desc => "Crispr Count",
-			-alphabet => "dna"
-		);
-		my $seqio_obj_out = Bio::SeqIO->new(
+my $seq_obj_out = ();
+my $seqio_obj_out = Bio::SeqIO->new(
 			-file => '>crisprsTEST2.fasta',
 			-format => 'fasta'
 		);
-		
-		$seqio_obj_out->write_seq($seq_obj_out);
+$seqio_obj_out->write_seq($seq_obj_out);		
+
 
 #Loop through the hash of last 12 counts
+
 for my $last12Seq ( sort (keys %last12Counts) ) {
 
 	#Check if count == 1 for this sequence
@@ -95,7 +90,13 @@ for my $last12Seq ( sort (keys %last12Counts) ) {
 		#The last 12 seq of this CRISPR is unique in the genome.
 		#Increment the CRISPR count.
 		$crisprCount++;
-
+		$seq_obj_out = Bio::Seq->new(
+			-seq => '$kMerHash{$last12Seq}',
+			-display_id => 'crispr_$crisprCount',
+			-desc => "Crispr Count",
+			-alphabet => "dna"
+		);
+	
 	}
 }
 
