@@ -15,7 +15,6 @@ use Bio::SeqIO;
 # One Bio::SeqIO to write CRISPRS
 
 #create an output file
-#open( FASTA_OUT, ">", 'crisprs1.fasta' ) or die $!;    #open or die
 
 # Bio::SeqIO to read input fasta file:
 my $seqio_obj = Bio::SeqIO->new(
@@ -75,7 +74,7 @@ sub callSequence {
 my $crisprCount = 0;
 
 my $seqio_obj_out = Bio::SeqIO->new(
-	-file   => '>crisprsTEST2.fasta',
+	-file   => '>crisprsTEST4.fasta',
 	-format => 'fasta'
 );
 
@@ -92,8 +91,7 @@ for my $last12Seq ( sort ( keys %last12Counts ) ) {
 		my $seq_obj_out = Bio::Seq->new(
 			-seq        => '$kMerHash{$last12Seq}',
 			-display_id => 'crispr_$crisprCount',
-			-desc       => "Crispr Count",
-			-alphabet   => "dna"
+			-desc       => "Crispr Count"
 		);
 		$seqio_obj_out->write_seq($seq_obj_out);
 	}
