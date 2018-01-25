@@ -75,7 +75,7 @@ sub callSequence {
 my $crisprCount = 0;
 
 my $seqio_obj_out = Bio::SeqIO->new(
-	-file   => '>crisprsTEST4.fasta',
+	-file   => '>crisprs1.fasta',
 	-format => 'fasta'
 );
 
@@ -90,8 +90,8 @@ for my $last12Seq ( sort ( keys %last12Counts ) ) {
 		$crisprCount++;
 		
 		my $seq_obj_out = Bio::Seq->new(
-			-seq        => '$kMerHash{$last12Seq}',
-			-display_id => 'crispr_$crisprCount',
+			-seq        => "$kMerHash{$last12Seq}",
+			-display_id => "crispr_$crisprCount",
 			-desc       => "Crispr Count"
 		);
 		$seqio_obj_out->write_seq($seq_obj_out);
