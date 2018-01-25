@@ -16,6 +16,12 @@ use Bio::SeqIO;
 
 #create an output file
 
+#hash to store kmers
+my %kMerHash = ();
+
+#hash to store occurrences of last 12 positions
+my %last12Counts = ();
+
 # Bio::SeqIO to read input fasta file:
 my $seqio_obj = Bio::SeqIO->new(
 	-file   => 'dmel-all-chromosome-r6.17.fasta',
@@ -27,11 +33,6 @@ while ( my $seq_obj = $seqio_obj->next_seq ) {
 	callSequence( \$sequence );
 }
 
-#hash to store kmers
-my %kMerHash = ();
-
-#hash to store occurrences of last 12 positions
-my %last12Counts = ();
 
 sub callSequence {
 	my ($sequence) = @_;
