@@ -26,25 +26,25 @@ my $seqio_obj_out = Bio::SeqIO->new(
 
 #Create $left, inside while loop create right read SeqIO
 while ( my $seq_obj_L = $seqio_obj_L->next_seq ) {
-	while ( my $seq_obj_R = $seqio_obj_R->next_seq ) {
-		my $left  = $seq_obj_L;
-		my $right = $seq_obj_R;
+	my $seq_obj_R = $seqio_obj_R->next_seq;
+	my $left      = $seq_obj_L;
+	my $right     = $seq_obj_R;
 
- 	#Bio:SeqIO for a fastq file returns a Bio::Seq:Quality, method:
- 	#Returns the longest sequence that has quality values above the given threshold
-		my $leftTrimmed  = $left->get_clear_range(20);
-		my $rightTrimmed = $right->get_clear_range(20);
+ #Bio:SeqIO for a fastq file returns a Bio::Seq:Quality, method:
+ #Returns the longest sequence that has quality values above the given threshold
+	my $leftTrimmed  = $left->get_clear_range(20);
+	my $rightTrimmed = $right->get_clear_range(20);
 
 	#to copy description from one Bio::Seq to another:
-		$leftTrimmed->desc( $left->desc() );
-		$rightTrimmed->desc( $right->desc() );
-		
+	$leftTrimmed->desc( $left->desc() );
+	$rightTrimmed->desc( $right->desc() );
+
 	#Write output file
-		my $seq_obj_out = Bio::Seq->new(
-			-seq => "",
-			-display_id => "",
-			-desc => "",
-		);
-	}
+	my $seq_obj_out = Bio::Seq->new(
+		-seq        => "",
+		-display_id => "",
+		-desc       => "",
+	);
+
 }
 
