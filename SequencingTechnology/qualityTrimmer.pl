@@ -8,6 +8,30 @@ use Bio::SeqIO;
 
 #Need three Bio::SeqIO objects
 #One for each fastq
+my $R1 = Bio::SeqIO->new(
+	-file   => 'Sample.R1.fastq',
+	-format => 'fastq'
+);
+my $R2 = Bio::SeqIO->new(
+	-file   => 'Sample.R2.fastq',
+	-format => 'fastq'
+);
+
+my $Interleaved = Bio::SeqIO->new(
+	-file   => '>Interleaved.fastq',
+	-format => 'fastq'
+);
+
+while ( my $left = $R1->next_seq ) {
+	my $right        = $R2->next_seq;
+	my $leftTrimmed  = $left->get_clear_range(20);
+	my $rightTrimmed = $right->get_clear_range(20);
+	$leftTrimmed->desc( $left->desc() );
+	$Interleaved->write_seq($leftTrimmed);
+	$Interleaved->write_seq($rightTrimmed);
+}
+
+=cut
 my $seqio_obj_L = Bio::SeqIO->new(
 	-file   => 'Sample.R1.fastq',
 	-format => 'fastq'
