@@ -41,9 +41,9 @@ while ( my $seq_obj_L = $seqio_obj_L->next_seq ) {
 
 	#Write output file
 	my $seq_obj_out = Bio::Seq->new(
-		-seq        => "",
-		-display_id => "",
-		-desc       => "",
+		-seq        => "$left,$right",
+		-display_id => "Interleaved fastq",
+		-desc       => "Interleaved fastq values over 20",
 	);
 
 }
