@@ -50,34 +50,27 @@ unless ( -e $left and -e $right and $qual and $interleaved) {
 	die "Missing required options\n";
 }
 
-	my $leftTrimmed  = $left->get_clear_range(20);
-	my $rightTrimmed = $right->get_clear_range(20);
-	$leftTrimmed->desc( $left->desc() );
-	$rightTrimmed->desc($left->desc() );
-	$interleaved->write_seq($leftTrimmed);
-	$interleaved->write_seq($rightTrimmed);
-	
-=cut
+
 my $R1 = Bio::SeqIO->new(
-	-file   => 'Sample.R1.fastq',
+	-file   => "$left",
 	-format => 'fastq'
 );
 my $R2 = Bio::SeqIO->new(
-	-file   => 'Sample.R2.fastq',
+	-file   => "$right",
 	-format => 'fastq'
 );
 
 my $Interleaved = Bio::SeqIO->new(
-	-file   => '>Interleaved.fastq',
+	-file   => ">$interleaved",
 	-format => 'fastq'
 );
 
-while ( my $left = $R1->next_seq ) {
-	my $right        = $R2->next_seq;
-	my $leftTrimmed  = $left->get_clear_range(20);
-	my $rightTrimmed = $right->get_clear_range(20);
-	$leftTrimmed->desc( $left->desc() );
-	$rightTrimmed->desc($left->desc() );
+while ( my $leftseq = $R1->next_seq ) {
+	my $rightseq        = $R2->next_seq;
+	my $leftTrimmed  = $leftseq->get_clear_range(20);
+	my $rightTrimmed = $rightseq->get_clear_range(20);
+	$leftTrimmed->desc( $leftseq->desc() );
+	$rightTrimmed->desc($rightseq->desc() );
 	$Interleaved->write_seq($leftTrimmed);
 	$Interleaved->write_seq($rightTrimmed);
 }
