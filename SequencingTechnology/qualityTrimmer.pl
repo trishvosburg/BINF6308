@@ -67,8 +67,8 @@ my $Interleaved = Bio::SeqIO->new(
 
 while ( my $leftseq = $R1->next_seq ) {
 	my $rightseq        = $R2->next_seq;
-	my $leftTrimmed  = $leftseq->get_clear_range(20);
-	my $rightTrimmed = $rightseq->get_clear_range(20);
+	my $leftTrimmed  = $leftseq->get_clear_range($qual);
+	my $rightTrimmed = $rightseq->get_clear_range($qual);
 	$leftTrimmed->desc( $leftseq->desc() );
 	$rightTrimmed->desc($rightseq->desc() );
 	$Interleaved->write_seq($leftTrimmed);
