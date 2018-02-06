@@ -6,15 +6,32 @@ use feature qw(say);
 
 use Bio::Seq;
 use Bio::SeqIO;
+use Getopt::Long;
+use Pod::Usage;
 
 #username: vosburg.p
 
-# Write BioPerl version of writeCrisprs.pl
-# Replace filehandles with Bio:SeqIO objects
-# One Bio::SeqIO to read input FASTA file
-# One Bio::SeqIO to write CRISPRS
+my $fastaIn        = '';
+my $usage       = "\n$0 [options] \n
+Options:
+	-fastaIn 		Fasta input file
+	-help 			Show this message
+\n";
 
-#create an output file
+#check the flags
+GetOptions(
+	'fastaIn=s'        => \$fastaIn,
+	'help'          => sub { pod2usage($usage); },
+) or pod2usage($usage);
+
+unless ( -e $fastaIn) {
+	unless (-e $fastaIn) {
+		print "Specify file for left reads\n";
+	}
+	die "Missing required options\n";
+}
+
+
 
 #hash to store kmers
 my %kMerHash = ();
@@ -24,7 +41,7 @@ my %last12Counts = ();
 
 # Bio::SeqIO to read input fasta file:
 my $seqio_obj = Bio::SeqIO->new(
-	-file   => 'dmel-all-chromosome-r6.17.fasta',
+	-file   => "$fastaIn",
 	-format => 'fasta'
 );
 
@@ -75,7 +92,7 @@ sub callSequence {
 my $crisprCount = 0;
 
 my $seqio_obj_out = Bio::SeqIO->new(
-	-file   => '>crisprs1.fasta',
+	-file   => '>$crisprs1.fasta',
 	-format => 'fasta'
 );
 
