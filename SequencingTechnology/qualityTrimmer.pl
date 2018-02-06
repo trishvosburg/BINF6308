@@ -2,6 +2,7 @@
 use warnings;
 use strict;
 use diagnostics;
+
 use Bio::Seq;
 use Bio::SeqIO;
 use Getopt::Long;
