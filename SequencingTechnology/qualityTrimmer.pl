@@ -31,25 +31,24 @@ GetOptions(
 	'help'          => sub { pod2usage($usage); },
 ) or pod2usage($usage);
 
-unless ( -e $left and -e $right and $qual and $interleaved) {
-	unless (-e $left) {
+unless ( -e $left and -e $right and $qual and $interleaved ) {
+	unless ( -e $left ) {
 		print "Specify file for left reads\n";
 	}
-	
-	unless (-e $right) {
+
+	unless ( -e $right ) {
 		print "Specify file for right reads\n";
 	}
-	
+
 	unless ($interleaved) {
 		print "Specify file for interleaved output\n";
 	}
-	
+
 	unless ($qual) {
 		print "Specify quality score cutoff\n";
 	}
 	die "Missing required options\n";
 }
-
 
 my $R1 = Bio::SeqIO->new(
 	-file   => "$left",
@@ -66,14 +65,12 @@ my $Interleaved = Bio::SeqIO->new(
 );
 
 while ( my $leftseq = $R1->next_seq ) {
-	my $rightseq        = $R2->next_seq;
+	my $rightseq     = $R2->next_seq;
 	my $leftTrimmed  = $leftseq->get_clear_range($qual);
 	my $rightTrimmed = $rightseq->get_clear_range($qual);
 	$leftTrimmed->desc( $leftseq->desc() );
-	$rightTrimmed->desc($rightseq->desc() );
+	$rightTrimmed->desc( $rightseq->desc() );
 	$Interleaved->write_seq($leftTrimmed);
 	$Interleaved->write_seq($rightTrimmed);
 }
-
-
 

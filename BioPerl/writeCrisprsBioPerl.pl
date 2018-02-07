@@ -11,8 +11,8 @@ use Pod::Usage;
 
 #username: vosburg.p
 
-my $fastaIn        = '';
-my $usage       = "\n$0 [options] \n
+my $fastaIn = '';
+my $usage   = "\n$0 [options] \n
 Options:
 	-fastaIn 		Fasta input file
 	-help 			Show this message
@@ -20,18 +20,16 @@ Options:
 
 #check the flags
 GetOptions(
-	'fastaIn=s'        => \$fastaIn,
-	'help'          => sub { pod2usage($usage); },
+	'fastaIn=s' => \$fastaIn,
+	'help'      => sub { pod2usage($usage); },
 ) or pod2usage($usage);
 
-unless ( -e $fastaIn) {
-	unless (-e $fastaIn) {
+unless ( -e $fastaIn ) {
+	unless ( -e $fastaIn ) {
 		print "Specify file for left reads\n";
 	}
 	die "Missing required options\n";
 }
-
-
 
 #hash to store kmers
 my %kMerHash = ();
@@ -49,7 +47,6 @@ while ( my $seq_obj = $seqio_obj->next_seq ) {
 	my $sequence = $seq_obj->seq;
 	callSequence( \$sequence );
 }
-
 
 sub callSequence {
 	my ($sequence) = @_;
@@ -105,7 +102,7 @@ for my $last12Seq ( sort ( keys %last12Counts ) ) {
 		#The last 12 seq of this CRISPR is unique in the genome.
 		#Increment the CRISPR count.
 		$crisprCount++;
-		
+
 		my $seq_obj_out = Bio::Seq->new(
 			-seq        => "$kMerHash{$last12Seq}",
 			-display_id => "crispr_$crisprCount",
