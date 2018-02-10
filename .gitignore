@@ -9,4 +9,5 @@
 *.iit
 *.log
 *.err
-AiptasiaGmapDb/trinity_out_dir/
+AiptasiaGmapDb/
+trinity_out_dir/

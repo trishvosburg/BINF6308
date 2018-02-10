@@ -1,5 +1,5 @@
 #!/bin/sh
-nice -n 19 gnsnap \
+nice -n 19 gsnap \
 -A sam \
 -s AiptasiaGmapIIT.iit \
 -D . \
