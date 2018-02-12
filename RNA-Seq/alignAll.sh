@@ -12,8 +12,8 @@ do
 	-s AiptasiaGmapIIT.iit \
 	-D . \
 	-d AiptasiaGmapdb \
-	$fastqPath$sampleName$leftSuffix \
-	$fastqPath$sampleName$rightSuffix \
+	#$fastqPath$sampleName$leftSuffix \
+	#$fastqPath$sampleName$rightSuffix \
 	$outPath$sampleName$leftSuffix \
 	$outPath$sampleName$rightSuffix \
 	#1>$sampleName.aligned.sam 2>$sampleName.aligned.err 
