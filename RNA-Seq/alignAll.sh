@@ -11,10 +11,10 @@ do
 	-A sam \
 	-s AiptasiaGmapIIT.iit \
 	-D . \
-	-d AiptasiaGmapdb \
-	#1> 
-	$outPath$sampleName$leftSuffix \
-	$outPath$sampleName$rightSuffix \
-	$sampleName.aligned.sam
-	# 2>$sampleName.aligned.err 
+	-d AiptasiaGmapDb \
+	$pairedTrimmedPath$sampleName$leftSuffix \
+	$pairedTrimmedPath$sampleName$rightSuffix \
+	1>$outPath$sampleName \
+	$sampleName.aligned.sam \
+	2>$sampleName.aligned.err 
 done
