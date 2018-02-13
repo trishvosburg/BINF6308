@@ -1,5 +1,5 @@
 #!/bin/bash
-pairedTrimmedPath="/Paired/"
+pairedTrimmedPath="Paired/"
 leftSuffix=".R1.fastq"
 rightSuffix=".R2.fastq"
 outPath="sam/"
@@ -12,10 +12,9 @@ do
 	-s AiptasiaGmapIIT.iit \
 	-D . \
 	-d AiptasiaGmapdb \
-	#$fastqPath$sampleName$leftSuffix \
-	#$fastqPath$sampleName$rightSuffix \
+	#1> 
 	$outPath$sampleName$leftSuffix \
 	$outPath$sampleName$rightSuffix \
-	#1>$sampleName.aligned.sam 2>$sampleName.aligned.err 
-
+	$sampleName.aligned.sam
+	# 2>$sampleName.aligned.err 
 done
