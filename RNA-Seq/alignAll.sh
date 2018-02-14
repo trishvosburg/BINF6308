@@ -12,8 +12,6 @@ do
 	-s AiptasiaGmapIIT.iit \
 	-D . \
 	-d AiptasiaGmapDb \
-	#Aip02.R1.paired.fastq one input file
-	#Aip02.R2.paired.fastq one input file
 	$pairedTrimmedPath$sampleName$leftSuffix \
 	$pairedTrimmedPath$sampleName$rightSuffix \
 	1>$outPath$sampleName.aligned.sam \
