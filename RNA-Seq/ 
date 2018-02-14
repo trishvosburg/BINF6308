@@ -1,0 +1,1 @@
+nice -n 19 gsnap -A sam -s AiptasiaGmapIIT.iit -D . -d AiptasiaGmapDb
