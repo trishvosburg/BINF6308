@@ -7,9 +7,9 @@ for leftInFile in $samPath*$suffix
 do
 	pathRemoved="${leftInFile/$samPath/}"
 	sampleName="${pathRemoved/$suffix/}"
-	echo samtools sort \
+	samtools sort \
 	$samPath$sampleName$suffix \
-	#1>$outPath$sampleName.sorted.bam \
-	#$sampleName.sort.log 2>$sampleName.sort.err 
+	-o $outPath$sampleName.sorted.bam \
+	1>$sampleName.sort.log 2>$sampleName.sort.err 
 
 done
