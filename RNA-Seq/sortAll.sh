@@ -1,17 +1,15 @@
-#!/bin/bash
+#!/bin/sh
 #sortAll should output to bam directory
-pairedTrimmedPath="Paired/"
-leftSuffix=".R1.fastq"
-rightSuffix=".R2.fastq"
+samPath="sam/"
+suffix=".sam"
 outPath="bam/"
-for leftInFile in $pairedTrimmedPath*$leftSuffix
+for leftInFile in $samPath*$suffix
 do
-	pathRemoved="${leftInFile/$pairedTrimmedPath/}"
-	sampleName="${pathRemoved/$leftSuffix/}"
+	pathRemoved="${leftInFile/$samPath/}"
+	sampleName="${pathRemoved/$suffix/}"
 	echo samtools sort \
-	Aip02.sam \
-	#1>$outPath$sampleName \
-	#$outPath.sorted.bam \
+	$samPath$sampleName$suffix \
+	#1>$outPath$sampleName.sorted.bam \
 	#$sampleName.sort.log 2>$sampleName.sort.err 
 
 done
