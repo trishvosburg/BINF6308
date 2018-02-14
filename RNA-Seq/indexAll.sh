@@ -1,16 +1,15 @@
-#!/bin/bash
+#!/bin/sh
 #indexAll should output to bam directory
-pairedTrimmedPath="Paired/"
-leftSuffix=".R1.fastq"
-rightSuffix=".R2.fastq"
+bamPath="bam/"
+suffix=".sorted.bam"
 outPath= "bam/"
-for LeftInFile in $pairedTrimmedPath*$leftSuffix
+for LeftInFile in $bamPath*$suffix
 do
-	pathRemoved="${leftInFile/$pairedTrimmedPath/}"
-	sampleName="${pathRemoved/$leftSuffix/}"
+	pathRemoved="${leftInFile/$bamPath/}"
+	sampleName="${pathRemoved/$suffix/}"
 	echo nice -n19 \
-	samtools index Aip02.sorted.bam \
-	#1>$outPath$sampleName \
-	$sampleName.index.bam \
-	1>$sampleName.index.log 2>$sampleName.index.err 
+	samtools index \
+	$bamPath$sampleName$suffix \
+	#-o $outPath$sampleName.index.bam \
+	#1>$sampleName.index.log 2>$sampleName.index.err 
 done
