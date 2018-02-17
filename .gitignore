@@ -1,5 +1,8 @@
 /.metadata/
 /.DS_Store
+*.*
+!*.sh
+!*.pl
 *.fasta
 *.fastq
 *.sam
@@ -11,3 +14,4 @@
 *.err
 AiptasiaGmapDb/
 trinity_out_dir/
+
