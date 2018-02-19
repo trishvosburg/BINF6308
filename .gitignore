@@ -1,8 +1,8 @@
-/.metadata/
-/.DS_Store
 *.*
 !*.sh
 !*.pl
+/.metadata/
+/.DS_Store
 *.fasta
 *.fastq
 *.sam
