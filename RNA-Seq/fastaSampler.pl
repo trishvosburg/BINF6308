@@ -2,6 +2,11 @@
 use warnings;
 use strict;
 
+# Purpose: to get a sample of a large FASTA file (transcriptome data)
+	# to understand how Blast2Go works without running something for
+	# several days. Can test code on small sample -> work out any bugs 
+	# before running on large file
+
 use Bio::Seq;
 use Bio::SeqIO;
 use Getopt::Long;
