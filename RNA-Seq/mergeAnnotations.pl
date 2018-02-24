@@ -2,23 +2,28 @@
 use warnings;
 use strict;
 
+# Purpose: match transcript IDs from assembly to SwissProt hits 
+	# in blastp output file
+
 use Bio::Seq;
 use Bio::SeqIO;
 use Bio::SearchIO;
 use Bio::Search::Result::GenericResult;
 use Data::Dumper;
 
-# initialize Bio::SearchIO to variable
+# Initialize Bio::SearchIO to variable
 my $blastXml = Bio::SearchIO->new(
 	-file   => 'Trinity-GG.blastp.xml',
 	-format => 'blastxml'
 );
-my $output = Bio::SeqIO->new(
-	-file => '>aipSwissProt.tsv',
-	-format => 'tab',
-);
-print "Trinity Swissprot SwissProtDesc eValue";
 
+# Open outfile
+my $outfile = 'aipSwissProt.tsv';
+my $outFh;
+unless (open($outFh, ">", $outfile)){
+	die join (' ', "Can't open outfile", $outfile, $!);
+}
+print $outFh join("\t", "Trinity", "SwissProt", "SwissProtDesc", "eValue");
 
 # Will keep getting search results until it reaches end of XML file
 # next_result returns an object
@@ -46,11 +51,8 @@ while ( my $result = $blastXml->next_result() ) {
 			#print $subjectDescription, "\t";
 			#print $hit->significance, "\n";
 			my $hitSig = ($hit->significance);
-			$output->write_seq($queryDescShort);
-			$output->write_seq($hitAcc);
-			$output->write_seq($subjectDescription);
-			$output->write_seq($hitSig);
-			
+			# Write output to output filehandle
+			print $outFh join("\t", $queryDescShort, $hitAcc, $subjectDescription, $hitSig);
 		}
 	}
 }
