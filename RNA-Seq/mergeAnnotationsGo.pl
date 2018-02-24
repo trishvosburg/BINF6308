@@ -2,9 +2,24 @@
 use warnings;
 use strict;
 
-# Purpose: merge the annotations from tsv file by putting data in 
-	# 2D hash 
+# Purpose: merge the annotations from tsv file by putting data in 2D hash
 
+open( SP, "<", "aipSwissProt.tsv" ) or die "Cannot open file", $!;
+
+my %spToGo;
+
+while (<SP>) {
+	chomp;
+	my ( $trinity, $swissProt, $description, $eValue ) =
+	  split( "\t", $_ );
+	if ( defined $spToGo{$swissProt} ) {
+		foreach my $go ( sort keys %{ $spToGo{$swissProt} } ) {
+			print join( "\t", $trinity, $description, $swissProt, $go ), "\n";
+		}
+	}
+}
+
+=cut
 # Open tsv file from Blast2Go with filehandle, or die
 open( SP_TO_GO, "<", "spToGo.tsv" ) or die $!;
 
