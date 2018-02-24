@@ -52,7 +52,7 @@ while ( my $result = $blastXml->next_result() ) {
 			#print $hit->significance, "\n";
 			my $hitSig = ($hit->significance);
 			# Write output to output filehandle
-			print $outFh join("\t", $queryDescShort, $hitAcc, $subjectDescription, $hitSig);
+			print $outFh ($queryDescShort, $hitAcc, $subjectDescription, $hitSig);
 		}
 	}
 }
