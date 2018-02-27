@@ -10,7 +10,7 @@ use strict;
 # for biological process terms associated with the trinity IDs
 # write to trinitySPGo.tsv
 
-=cut
+
 # Open tsv file from Blast2Go with filehandle, or die
 open( SP_TO_GO, "<", "spToGo.tsv" ) or die $!;
 
@@ -28,7 +28,7 @@ while (<SP_TO_GO>) {
 	$spToGo{$swissProt}{$go}++;
 }
 
-=cut
+
 # Put names and IDs from bioProcess into a hash
 # Check: hash is working!
 open( BP, "<", "bioProcess.tsv" ) or die $!;
@@ -49,9 +49,13 @@ while (<SP>) {
 	chomp;
 	my ( $trinity, $swissProt, $description, $eValue ) =
 	  split( "\t", $_ );
-	if ( defined $BP{$swissProt} ) {
-		foreach $go_name( sort keys %{ $BP{$swissProt} } ) {
-			print join( "\t", $trinity, $swissProt, $description, $go_name, $go_id ), "\n";
+	if ( defined $spToGo{$swissProt} ) {
+		foreach my $go ( sort keys %{ $spToGo{$swissProt} } ) {
+			if (defined $BP{$go}) {
+				foreach $go_name (sort keys %{$BP{$go}}) {
+				print join( "\t", $trinity, $swissProt, $description, $go_name, $go_id ), "\n";
+				}
+			}
 		}
 	}
 }
