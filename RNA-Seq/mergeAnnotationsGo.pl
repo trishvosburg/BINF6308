@@ -5,11 +5,12 @@ use strict;
 # Purpose: merge the annotations from tsv file by putting data in 2D hash
 
 # Add read filehandle to so it reads bioProcess.tsv from navigateGoTerms.pl
-# Puts IDs and N=names as hash -> ID as key, name as value
+# Puts IDs and names as hash -> ID as key, name as value
 # Modify output so it prints trinityID, SwissProtID, SwissProt description, GO Terms, and GO descriptions
 # for biological process terms associated with the trinity IDs
 # write to trinitySPGo.tsv
 
+=cut
 # Open tsv file from Blast2Go with filehandle, or die
 open( SP_TO_GO, "<", "spToGo.tsv" ) or die $!;
 
@@ -27,6 +28,19 @@ while (<SP_TO_GO>) {
 	$spToGo{$swissProt}{$go}++;
 }
 
+=cut
+# Put names and IDs from bioProcess into a hash
+# Check: hash is working!
+open( BP, "<", "bioProcess.tsv" ) or die $!;
+my %BP;
+my $go_name;
+my $go_id;
+while (<BP>) {
+	chomp;
+	my ($go_name, $go_id) = split ("\t", $_);
+	$BP{$go_name}=$go_id;
+}
+
 # Open tsv file with filehandle, or die
 open( SP, "<", "aipSwissProt.tsv" ) or die $!;
 
@@ -35,14 +49,14 @@ while (<SP>) {
 	chomp;
 	my ( $trinity, $swissProt, $description, $eValue ) =
 	  split( "\t", $_ );
-	if ( defined $spToGo{$swissProt} ) {
-		foreach my $go ( sort keys %{ $spToGo{$swissProt} } ) {
-			print join( "\t", $trinity, $description, $swissProt, $go ), "\n";
+	if ( defined $BP{$swissProt} ) {
+		foreach $go_name( sort keys %{ $BP{$swissProt} } ) {
+			print join( "\t", $trinity, $swissProt, $description, $go_name, $go_id ), "\n";
 		}
 	}
 }
-
 =cut
+
 # Test hash with foreach loop
 # Loop over $swissProt (first key) and sort to make sure everything is in order
 foreach my $swissProt ( sort keys %spToGo ) {
