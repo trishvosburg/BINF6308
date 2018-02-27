@@ -5,6 +5,8 @@ use strict;
 # Purpose: to understand BioPerl OntologyIO module, which can read 
 	#gene onotology OBO format
 
+# Add write filehandle so tab-separated output is written to bioProcess.tsv
+
 # Declare which module to be used
 use Bio::OntologyIO;
 
@@ -19,5 +21,5 @@ my $parser = Bio::OntologyIO->new(
 while (my $ont = $parser->next_ontology() ) {
 	print "read ontology ", $ont->name(), "with ",
 		scalar ($ont->get_root_terms), " root terms, and ",
-		scalar ($ont->get_leaf_names), " leaf terms \n";
+		scalar ($ont->get_leaf_terms), " leaf terms \n";
 }
