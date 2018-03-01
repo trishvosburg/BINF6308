@@ -1,6 +1,8 @@
 *.*
 !*.sh
 !*.pl
+!*.csv
+!.gitignore
 /.metadata/
 /.DS_Store
 *.fasta
