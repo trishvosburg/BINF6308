@@ -3,6 +3,8 @@
 !*.pl
 !*.csv
 !.gitignore
+!*.xprs
+!*.matrix
 /.metadata/
 /.DS_Store
 *.fasta
