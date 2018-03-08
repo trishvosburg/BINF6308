@@ -1,7 +1,7 @@
 #!/bin/bash
 xprsPath=$1
 xprsExt='.err'
-outFile='transAlignStats.csv'
+outFile='tranAlignStats.csv'
 searchText='overall alignment rate'
 echo 'Sample,TranAlignPct' > $xprsPath$outFile
 grep "$searchText" $xprsPath*$xprsExt | while read -r line;
