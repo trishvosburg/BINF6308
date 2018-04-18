@@ -13,8 +13,10 @@
 relatedness='famEpilepsyRelatedness'
 eigen='famEpilepsyEigen'
 wald='famEpilepsyWald'
-baseCommand='gemma -bfile famEpilepsy'
-$baseCommand -gk 2 -o $relatedness 
-$baseCommand -k $relatedness -eigen -o $eigen
-$baseCommand -lm 2 $wald
-1>gemma.log 2>gemma.err &
+runGemma(){
+	baseCommand='gemma -bfile famEpilepsy'
+	$baseCommand -gk 2 -o $relatedness 
+	$baseCommand -k $relatedness -eigen -o $eigen
+	$baseCommand -lm 2 $wald
+}
+runGemma 1>gemma.log 2>gemma.err &
