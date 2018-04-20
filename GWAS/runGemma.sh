@@ -10,13 +10,11 @@
 # -eigen -> eigen-decomposition
 # -lmm 1 -> Wald test 
 ###
-relatedness='famEpilepsyRelatedness'
-eigen='famEpilepsyEigen'
-wald='famEpilepsyWald'
+prefix='famEpilepsy'
 runGemma(){
 	baseCommand='gemma -bfile famEpilepsy'
-	$baseCommand -gk 2 -o $relatedness 
-	$baseCommand -k $relatedness -eigen -o $eigen
-	$baseCommand -lm 2 $wald
+	$baseCommand -gk 2 -o $prefix 
+	$baseCommand -k output/famEpilepsy.sXX.txt -eigen -o $prefix
+	$baseCommand -lmm 1 -d output/famEpilepsy.eigenD.txt -u output/famEpilepsy.eigenU.txt -o $prefix
 }
 runGemma 1>gemma.log 2>gemma.err &
