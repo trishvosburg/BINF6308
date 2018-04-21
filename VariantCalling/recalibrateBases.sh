@@ -16,10 +16,10 @@ baseRecal(){
 	baseCommand='nice -n19 java -jar /usr/local/programs/GenomeAnalysisTK-3.8-0/GenomeAnalysisTK.jar'
 	step12='-T BaseRecalibrator -R vShiloni.fasta' 
 	step3='-T AnalyzeCovariates -R vShiloni.fasta'
-	step4='-T PrintReads -R genotype.vcf'
-	$baseCommand $step12 $bamParam -knownSites $knownVariant -o $recalData
-	$baseCommand $step12 $bamParam -knownSites $knownVariant -BQSR $recalData -o $postRecalData
-	$baseCommand $step3 -before $recalData -after $postRecalData -plots $pdfOut
+	step4='-T PrintReads -R vShiloni.fasta'
+	#$baseCommand $step12 $bamParam -knownSites $knownVariant -o $recalData
+	#$baseCommand $step12 $bamParam -knownSites $knownVariant -BQSR $recalData -o $postRecalData
+	#$baseCommand $step3 -before $recalData -after $postRecalData -plots $pdfOut
 	$baseCommand $step4 $bamParam -BQSR $recalData -o $bamOut
 }
 baseRecal 1>recalibrate.log 2>recalibrate.err &
